@@ -891,24 +891,55 @@
                 backgroundColor: null,
                 logging: false
             }).then(canvas => {
-                // 创建一个临时的a标签
-                const link = document.createElement('a');
-                link.download = '运势卡片.png';
+                // 检查是否在微信浏览器中
+                const isWeixinBrowser = /MicroMessenger/i.test(navigator.userAgent);
                 
-                // 将canvas转换为blob
-                canvas.toBlob((blob) => {
-                    // 创建blob URL
-                    const url = URL.createObjectURL(blob);
-                    link.href = url;
+                if (isWeixinBrowser) {
+                    // 在微信中，直接显示图片
+                    const img = document.createElement('img');
+                    img.src = canvas.toDataURL('image/png');
+                    img.style.maxWidth = '100%';
+                    img.style.height = 'auto';
                     
-                    // 触发下载
-                    document.body.appendChild(link);
-                    link.click();
+                    // 创建图片容器
+                    const container = document.createElement('div');
+                    container.style.position = 'fixed';
+                    container.style.top = '0';
+                    container.style.left = '0';
+                    container.style.width = '100%';
+                    container.style.height = '100%';
+                    container.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+                    container.style.display = 'flex';
+                    container.style.justifyContent = 'center';
+                    container.style.alignItems = 'center';
+                    container.style.zIndex = '9999';
                     
-                    // 清理
-                    document.body.removeChild(link);
-                    URL.revokeObjectURL(url);
-                }, 'image/png');
+                    // 添加图片和关闭按钮
+                    container.innerHTML = `
+                        <div style="position: relative; max-width: 90%; max-height: 90%;">
+                            <img src="${canvas.toDataURL('image/png')}" style="max-width: 100%; height: auto;">
+                            <button onclick="this.parentElement.parentElement.remove()" 
+                                    style="position: absolute; top: -40px; right: 0; 
+                                           background: none; border: none; color: white; 
+                                           font-size: 24px; cursor: pointer;">×</button>
+                        </div>
+                    `;
+                    
+                    document.body.appendChild(container);
+                } else {
+                    // 在普通浏览器中，使用下载方式
+                    const link = document.createElement('a');
+                    link.download = '运势卡片.png';
+                    
+                    canvas.toBlob((blob) => {
+                        const url = URL.createObjectURL(blob);
+                        link.href = url;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        URL.revokeObjectURL(url);
+                    }, 'image/png');
+                }
             });
         });
 
