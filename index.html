@@ -487,7 +487,7 @@
                         </div>
 
                         <!-- 图片预览（隐藏） -->
-                        <div id="image-preview" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center hidden z-50 overflow-auto">
+                        <div id="image-preview" class="fixed inset-0 bg-black bg-opacity-80 hidden z-50">
                             <div class="relative w-full min-h-screen flex items-center justify-center p-4">
                                 <div class="relative w-full max-w-md mx-auto">
                                     <img id="preview-image" src="" alt="运势卡片" class="w-full rounded-lg shadow-xl">
@@ -969,9 +969,6 @@
                     <span>生成中...</span>
                 `;
 
-                // 记住当前滚动位置
-                const scrollPosition = window.scrollY;
-
                 // 显示运势卡片
                 const card = document.getElementById('fortune-card');
                 card.classList.remove('hidden');
@@ -1006,11 +1003,22 @@
                 previewImage.src = imageData;
                 imagePreview.classList.remove('hidden');
 
-                // 禁止背景滚动
-                document.body.style.overflow = 'hidden';
-                document.body.style.position = 'fixed';
-                document.body.style.width = '100%';
-                document.body.style.top = `-${scrollPosition}px`;
+                // 获取点击按钮时的位置
+                const buttonRect = button.getBoundingClientRect();
+                const buttonCenterY = buttonRect.top + buttonRect.height / 2;
+                const windowHeight = window.innerHeight;
+                
+                // 调整预览容器的位置
+                const previewContainer = imagePreview.querySelector('.relative.w-full.min-h-screen');
+                if (buttonCenterY < windowHeight / 2) {
+                    // 如果按钮在屏幕上半部分，预览显示在下方
+                    previewContainer.style.alignItems = 'flex-start';
+                    previewContainer.style.paddingTop = '20vh';
+                } else {
+                    // 如果按钮在屏幕下半部分，预览显示在上方
+                    previewContainer.style.alignItems = 'flex-end';
+                    previewContainer.style.paddingBottom = '20vh';
+                }
 
                 // 添加触摸事件处理
                 let startY = 0;
@@ -1052,13 +1060,11 @@
             const imagePreview = document.getElementById('image-preview');
             imagePreview.classList.add('hidden');
             
-            // 恢复背景滚动
-            const scrollPosition = parseInt(document.body.style.top || '0');
-            document.body.style.overflow = '';
-            document.body.style.position = '';
-            document.body.style.width = '';
-            document.body.style.top = '';
-            window.scrollTo(0, -scrollPosition);
+            // 重置预览容器的位置样式
+            const previewContainer = imagePreview.querySelector('.relative.w-full.min-h-screen');
+            previewContainer.style.alignItems = '';
+            previewContainer.style.paddingTop = '';
+            previewContainer.style.paddingBottom = '';
         }
 
         // 关闭预览
