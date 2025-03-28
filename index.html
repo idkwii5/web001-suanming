@@ -156,225 +156,6 @@
         </div>
     </section>
 
-    <!-- 运势测试工具 -->
-    <section id="fortune-tool" class="py-16 bg-indigo-50">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
-                <div class="p-8">
-                    <h2 class="text-3xl font-bold text-center mb-8">立即测算您的运势</h2>
-                    <form id="fortune-form" class="space-y-6">
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div class="space-y-2">
-                                <label for="fullname" class="block text-sm font-medium text-gray-700">您的姓名</label>
-                                <input type="text" id="fullname" name="fullname" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-common">
-                            </div>
-                            <div class="space-y-2">
-                                <label for="gender" class="block text-sm font-medium text-gray-700">性别</label>
-                                <select id="gender" name="gender" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-common">
-                                    <option value="" disabled selected>请选择</option>
-                                    <option value="male">男</option>
-                                    <option value="female">女</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="space-y-2">
-                            <label class="block text-sm font-medium text-gray-700">出生日期</label>
-                            <div class="grid md:grid-cols-3 gap-4">
-                                <select id="birth-year" name="birth-year" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-common">
-                                    <option value="" disabled selected>年</option>
-                                </select>
-                                <select id="birth-month" name="birth-month" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-common">
-                                    <option value="" disabled selected>月</option>
-                                </select>
-                                <select id="birth-day" name="birth-day" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-common">
-                                    <option value="" disabled selected>日</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="space-y-2">
-                            <label class="block text-sm font-medium text-gray-700">出生时间（非必填，提供可获得更精准结果）</label>
-                            <div class="grid md:grid-cols-2 gap-4">
-                                <select id="birth-hour" name="birth-hour" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-common">
-                                    <option value="" disabled selected>时</option>
-                                </select>
-                                <select id="birth-minute" name="birth-minute" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-common">
-                                    <option value="" disabled selected>分</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="text-center pt-4">
-                            <button type="submit" id="calculate-btn" class="inline-flex items-center justify-center bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-lg shadow-lg transition-common text-lg" aria-label="开始测算运势">
-                                <span>开始测算</span>
-                                <svg class="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-                                </svg>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <!-- 运势结果显示区域 -->
-            <div id="fortune-result" class="max-w-4xl mx-auto mt-10 bg-white rounded-xl shadow-lg overflow-hidden result-container">
-                <div class="p-8">
-                    <h2 class="text-3xl font-bold text-center mb-6">您的运势分析报告</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                        <!-- 基本信息 -->
-                        <div class="flex flex-col items-center justify-center">
-                            <div id="result-avatar" class="w-28 h-28 rounded-full bg-indigo-100 flex items-center justify-center text-4xl font-bold text-indigo-600 mb-3">张</div>
-                            <div id="result-name" class="text-xl font-bold">张先生</div>
-                            <div id="result-birthdate" class="text-gray-600">1990年6月15日</div>
-                        </div>
-                        <!-- 运势评级 -->
-                        <div class="md:col-span-3">
-                            <div class="mb-6">
-                                <div class="flex items-center justify-between mb-2">
-                                    <span class="text-lg font-medium">运势评级</span>
-                                    <span id="fortune-rating" class="text-2xl font-bold text-indigo-600">★★★★☆</span>
-                                </div>
-                                <div class="bg-gray-200 rounded-full h-4 overflow-hidden">
-                                    <div id="fortune-score-bar" class="h-full bg-gradient-to-r from-indigo-500 to-indigo-600" style="width: 85%"></div>
-                                </div>
-                                <div class="mt-2 text-right">
-                                    <span id="fortune-score" class="text-lg font-medium text-indigo-600">85</span>
-                                    <span class="text-gray-500">/100</span>
-                                </div>
-                            </div>
-                            <!-- 运势分析 -->
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <h3 class="text-lg font-medium mb-3">今日宜</h3>
-                                    <ul id="fortune-good" class="space-y-2">
-                                        <li class="flex items-center text-green-600">
-                                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                            </svg>
-                                            <span>商谈合作</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div>
-                                    <h3 class="text-lg font-medium mb-3">今日忌</h3>
-                                    <ul id="fortune-bad" class="space-y-2">
-                                        <li class="flex items-center text-red-600">
-                                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                                            </svg>
-                                            <span>轻率决策</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 详细分析 -->
-                    <div class="mt-8 pt-8 border-t border-gray-200">
-                        <h3 class="text-xl font-bold mb-4">详细运势分析</h3>
-                        <div id="fortune-details" class="space-y-6">
-                            <div class="bg-gray-50 rounded-lg p-4">
-                                <h4 class="font-medium text-indigo-600 mb-2">事业运势</h4>
-                                <p class="text-gray-700">根据紫微斗数显示，您当前处于事业上升期。太阳星与天机星相位良好，意味着您的创造力和决策力都处于高峰。建议把握机会，大胆尝试新的发展方向。</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 用户评价 -->
-    <section id="testimonials" class="py-16">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold mb-4">用户真实评价</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">来自各行各业的用户对我们的运势分析服务给予了高度评价</p>
-            </div>
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="bg-white rounded-xl shadow-md p-6 card-hover">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 mr-4">王</div>
-                        <div>
-                            <h4 class="font-bold">王先生</h4>
-                            <p class="text-sm text-gray-500">企业高管</p>
-                        </div>
-                    </div>
-                    <div class="rating-stars mb-2">★★★★★</div>
-                    <p class="text-gray-600 text-sm">测算的结果非常准确，尤其是对我职业发展的指导十分有价值。根据运势分析做出的决策，帮助我抓住了重要商机。</p>
-                </div>
-                <div class="bg-white rounded-xl shadow-md p-6 card-hover">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 mr-4">李</div>
-                        <div>
-                            <h4 class="font-bold">李女士</h4>
-                            <p class="text-sm text-gray-500">自由职业者</p>
-                        </div>
-                    </div>
-                    <div class="rating-stars mb-2">★★★★★</div>
-                    <p class="text-gray-600 text-sm">运势分析的每日宜忌建议非常实用，帮我避开了不少潜在风险。分析报告中的人际关系部分尤其准确，强烈推荐！</p>
-                </div>
-                <div class="bg-white rounded-xl shadow-md p-6 card-hover">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 mr-4">张</div>
-                        <div>
-                            <h4 class="font-bold">张先生</h4>
-                            <p class="text-sm text-gray-500">创业者</p>
-                        </div>
-                    </div>
-                    <div class="rating-stars mb-2">★★★★☆</div>
-                    <p class="text-gray-600 text-sm">作为一名创业者，我需要做很多关键决策。这里的运势分析给了我很多有用的参考，特别是财运和事业运分析相当精准。</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 价格区域 -->
-    <section id="pricing" class="py-16 bg-indigo-50">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold mb-4">选择您的命运解析方案</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">我们提供多种专业运势分析服务，满足您不同层次的需求</p>
-            </div>
-            <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                <div class="pricing-card bg-white rounded-xl shadow-md overflow-hidden">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">基础运势</h3>
-                        <div class="text-3xl font-bold mb-4">¥39<span class="text-sm text-gray-500">/次</span></div>
-                        <ul class="space-y-2 mb-6">
-                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-sm">基础八字命盘分析</span></li>
-                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-sm">近期运势预测</span></li>
-                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-sm">每日宜忌建议</span></li>
-                        </ul>
-                        <button class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg transition-common">立即购买</button>
-                    </div>
-                </div>
-                <div class="pricing-card bg-white rounded-xl shadow-md overflow-hidden transform scale-105 shadow-xl">
-                    <div class="bg-indigo-600 text-white text-center py-2 text-sm font-bold">推荐方案</div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">专业运势</h3>
-                        <div class="text-3xl font-bold mb-4">¥99<span class="text-sm text-gray-500">/次</span></div>
-                        <ul class="space-y-2 mb-6">
-                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-sm">全面紫微斗数解析</span></li>
-                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-sm">年度运势详细预测</span></li>
-                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-sm">事业财运深度分析</span></li>
-                        </ul>
-                        <button class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg transition-common">立即购买</button>
-                    </div>
-                </div>
-                <div class="pricing-card bg-white rounded-xl shadow-md overflow-hidden">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">至尊运势</h3>
-                        <div class="text-3xl font-bold mb-4">¥199<span class="text-sm text-gray-500">/次</span></div>
-                        <ul class="space-y-2 mb-6">
-                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-sm">专业版全部内容</span></li>
-                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-sm">10年大运详细解析</span></li>
-                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-sm">重大人生转折点预测</span></li>
-                        </ul>
-                        <button class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg transition-common">立即购买</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- 特色功能 -->
     <section id="features" class="py-16">
         <div class="container mx-auto px-4">
@@ -449,8 +230,367 @@
         </div>
     </section>
 
+    <!-- 运势计算工具 -->
+    <section id="fortune-tool" class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">免费运势测算</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">填写您的基本信息，获取专业的运势分析报告</p>
+            </div>
+            <div class="max-w-2xl mx-auto">
+                <form id="fortune-form" class="bg-white p-8 rounded-xl shadow-lg">
+                    <div class="mb-6">
+                        <label for="fullname" class="block text-gray-700 font-medium mb-2">姓名</label>
+                        <input type="text" id="fullname" name="fullname" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                            placeholder="请输入您的姓名">
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-medium mb-2">性别</label>
+                        <div class="flex space-x-4">
+                            <label class="flex items-center">
+                                <input type="radio" name="gender" value="male" required
+                                    class="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                <span class="ml-2">男</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="gender" value="female" required
+                                    class="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                <span class="ml-2">女</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        <div>
+                            <label for="birth-year" class="block text-gray-700 font-medium mb-2">出生年份</label>
+                            <select id="birth-year" name="birth-year" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                <option value="">年</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="birth-month" class="block text-gray-700 font-medium mb-2">月份</label>
+                            <select id="birth-month" name="birth-month" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                <option value="">月</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="birth-day" class="block text-gray-700 font-medium mb-2">日期</label>
+                            <select id="birth-day" name="birth-day" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                <option value="">日</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit"
+                        class="w-full bg-indigo-600 text-white py-3 rounded-lg text-lg font-medium hover:bg-indigo-700 transition-common">
+                        立即测算
+                    </button>
+                </form>
+            </div>
+
+            <!-- 运势结果显示区域 -->
+            <div id="fortune-result" class="max-w-4xl mx-auto mt-10 bg-white rounded-xl shadow-lg overflow-hidden result-container">
+                <div class="p-8">
+                    <h2 class="text-3xl font-bold text-center mb-6">您的运势分析报告</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                        <!-- 基本信息 -->
+                        <div class="flex flex-col items-center justify-center">
+                            <div id="result-avatar" class="w-28 h-28 rounded-full bg-indigo-100 flex items-center justify-center text-4xl font-bold text-indigo-600 mb-3">张</div>
+                            <div id="result-name" class="text-xl font-bold">张先生</div>
+                            <div id="result-birthdate" class="text-gray-600">1990年6月15日</div>
+                        </div>
+                        <!-- 运势评级 -->
+                        <div class="md:col-span-3">
+                            <div class="mb-6">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-lg font-medium">运势评级</span>
+                                    <span id="fortune-rating" class="text-2xl font-bold text-indigo-600">★★★★☆</span>
+                                </div>
+                                <div class="bg-gray-200 rounded-full h-4 overflow-hidden">
+                                    <div id="fortune-score-bar" class="h-full bg-gradient-to-r from-indigo-500 to-indigo-600" style="width: 85%"></div>
+                                </div>
+                                <div class="mt-2 text-right">
+                                    <span id="fortune-score" class="text-lg font-medium text-indigo-600">85</span>
+                                    <span class="text-gray-500">/100</span>
+                                </div>
+                            </div>
+                            <!-- 运势分析 -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <h3 class="text-lg font-medium mb-3">今日宜</h3>
+                                    <ul id="fortune-good" class="space-y-2">
+                                        <li class="flex items-center text-green-600">
+                                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                            </svg>
+                                            <span>商谈合作</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-medium mb-3">今日忌</h3>
+                                    <ul id="fortune-bad" class="space-y-2">
+                                        <li class="flex items-center text-red-600">
+                                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                            </svg>
+                                            <span>轻率决策</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 详细分析 -->
+                    <div class="mt-8 pt-8 border-t border-gray-200">
+                        <h3 class="text-xl font-bold mb-4">详细运势分析</h3>
+                        <div id="fortune-details" class="space-y-6">
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <h4 class="font-medium text-indigo-600 mb-2">事业运势</h4>
+                                <p class="text-gray-700">根据紫微斗数显示，您当前处于事业上升期，适合大胆尝试新的发展方向。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 星座运势 -->
+                    <div class="mt-8 pt-8 border-t border-gray-200">
+                        <h3 class="text-xl font-bold mb-4">星座运势</h3>
+                        <div id="zodiac-fortune" class="bg-gray-50 rounded-lg p-6">
+                            <div class="flex items-center mb-4">
+                                <div id="zodiac-icon" class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
+                                    <svg class="w-8 h-8 text-indigo-600" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                                    </svg>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 id="zodiac-name" class="text-xl font-bold">天蝎座</h4>
+                                    <p id="zodiac-date" class="text-gray-600">10月24日 - 11月22日</p>
+                                </div>
+                            </div>
+                            <div id="zodiac-content" class="space-y-4">
+                                <p class="text-gray-700">今日运势：★★★★☆</p>
+                                <p class="text-gray-700">幸运数字：7</p>
+                                <p class="text-gray-700">幸运色：深蓝色</p>
+                                <p class="text-gray-700">今日提醒：太阳与木星相位和谐，事业发展顺利，适合展开新计划。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 分享按钮 -->
+                    <div class="mt-8 flex justify-center space-x-4">
+                        <button id="share-wechat" class="flex items-center px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-common">
+                            <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8.2 13.3c-.5 0-.9-.4-.9-.9s.4-.9.9-.9.9.4.9.9-.4.9-.9.9m7.6 0c-.5 0-.9-.4-.9-.9s.4-.9.9-.9.9.4.9.9-.4.9-.9.9m-7.6-5.3c-.5 0-.9-.4-.9-.9s.4-.9.9-.9.9.4.9.9-.4.9-.9.9m7.6 0c-.5 0-.9-.4-.9-.9s.4-.9.9-.9.9.4.9.9-.4.9-.9.9M12 22.7c-5.9 0-10.7-4.8-10.7-10.7S6.1 1.3 12 1.3s10.7 4.8 10.7 10.7-4.8 10.7-10.7 10.7M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0"/>
+                            </svg>
+                            分享给微信好友
+                        </button>
+                        <button id="share-moments" class="flex items-center px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-common">
+                            <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3-13H9v2h6V7zm0 4H9v2h6v-2zm-6 4h6v2H9v-2z"/>
+                            </svg>
+                            分享到朋友圈
+                        </button>
+                    </div>
+
+                    <!-- 分享卡片（隐藏） -->
+                    <div id="share-card" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+                        <div class="bg-white rounded-xl p-6 max-w-sm w-full mx-4">
+                            <div class="text-center mb-4">
+                                <h4 class="text-xl font-bold">分享运势卡片</h4>
+                            </div>
+                            <div id="fortune-card" class="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg p-6 text-white">
+                                <div class="text-center mb-4">
+                                    <h5 class="text-2xl font-bold mb-2">今日运势</h5>
+                                    <p id="card-date" class="text-sm opacity-80"></p>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="text-center">
+                                        <div id="card-name" class="text-xl font-bold mb-1"></div>
+                                        <div id="card-score" class="text-3xl font-bold"></div>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <div class="text-sm opacity-80">综合运势</div>
+                                            <div id="card-rating" class="font-bold"></div>
+                                        </div>
+                                        <div>
+                                            <div class="text-sm opacity-80">星座运势</div>
+                                            <div id="card-zodiac" class="font-bold"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-4 pt-4 border-t border-white border-opacity-20">
+                                    <div class="text-sm text-center">
+                                        <p>长按保存图片</p>
+                                        <p class="opacity-80">星命运势提供</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 flex justify-end">
+                                <button id="close-share" class="px-4 py-2 text-gray-600 hover:text-gray-800">关闭</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 用户评价 -->
+    <section id="testimonials" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">用户好评</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">听听他们怎么说</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center text-xl font-bold text-indigo-600">L</div>
+                        <div class="ml-4">
+                            <h4 class="font-bold">李先生</h4>
+                            <div class="text-yellow-400">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"运势分析非常准确，帮助我在事业选择上做出了正确的决定。感谢星命运势的专业指导！"</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center text-xl font-bold text-indigo-600">W</div>
+                        <div class="ml-4">
+                            <h4 class="font-bold">王女士</h4>
+                            <div class="text-yellow-400">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"分析报告详细全面，对我的感情生活有很大帮助。推荐给身边的朋友们！"</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center text-xl font-bold text-indigo-600">Z</div>
+                        <div class="ml-4">
+                            <h4 class="font-bold">张先生</h4>
+                            <div class="text-yellow-400">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"专业的八字分析，让我对未来的发展更有信心。感谢星命运势团队的用心服务！"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 服务价格 -->
+    <section id="pricing" class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">服务套餐</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">选择最适合您的服务方案</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="bg-white p-8 rounded-xl shadow-lg pricing-card">
+                    <h3 class="text-2xl font-bold mb-4">基础版</h3>
+                    <div class="text-4xl font-bold mb-6">
+                        <span class="text-gray-900">¥68</span>
+                        <span class="text-lg text-gray-500 font-normal">/次</span>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            基础运势分析
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            今日运势提醒
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            基础八字解读
+                        </li>
+                    </ul>
+                    <button class="w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700 transition-common">立即购买</button>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-xl pricing-card transform scale-105 border-2 border-indigo-600">
+                    <div class="absolute top-0 right-0 bg-indigo-600 text-white px-3 py-1 rounded-bl-lg rounded-tr-lg text-sm">推荐</div>
+                    <h3 class="text-2xl font-bold mb-4">专业版</h3>
+                    <div class="text-4xl font-bold mb-6">
+                        <span class="text-gray-900">¥168</span>
+                        <span class="text-lg text-gray-500 font-normal">/次</span>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            包含基础版全部功能
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            紫微斗数详解
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            运势发展建议
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            在线咨询服务
+                        </li>
+                    </ul>
+                    <button class="w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700 transition-common">立即购买</button>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg pricing-card">
+                    <h3 class="text-2xl font-bold mb-4">尊享版</h3>
+                    <div class="text-4xl font-bold mb-6">
+                        <span class="text-gray-900">¥368</span>
+                        <span class="text-lg text-gray-500 font-normal">/次</span>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            包含专业版全部功能
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            一对一视频解读
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            终身运势指导
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            重大事件提醒
+                        </li>
+                    </ul>
+                    <button class="w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700 transition-common">立即购买</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- FAQ -->
-    <section id="faq" class="py-16">
+    <section id="faq" class="py-16 bg-gray-50">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12">
                 <h2 class="text-3xl font-bold mb-4">常见问题</h2>
@@ -513,32 +653,53 @@
     </footer>
 
     <script>
-        // 移动菜单切换
+        // 移动端菜单
         document.getElementById('mobile-menu-button').addEventListener('click', () => {
             document.getElementById('mobile-menu').classList.toggle('show');
         });
 
-        // 动态填充出生日期下拉框
-        const yearSelect = document.getElementById('birth-year');
-        const monthSelect = document.getElementById('birth-month');
-        const daySelect = document.getElementById('birth-day');
-        const hourSelect = document.getElementById('birth-hour');
-        const minuteSelect = document.getElementById('birth-minute');
+        // 初始化年月日选择器
+        function initDateSelectors() {
+            const yearSelect = document.getElementById('birth-year');
+            const monthSelect = document.getElementById('birth-month');
+            const daySelect = document.getElementById('birth-day');
 
-        for (let year = 1900; year <= 2025; year++) {
-            yearSelect.innerHTML += `<option value="${year}">${year}</option>`;
-        }
-        for (let month = 1; month <= 12; month++) {
-            monthSelect.innerHTML += `<option value="${month}">${month}</option>`;
-        }
-        for (let day = 1; day <= 31; day++) {
-            daySelect.innerHTML += `<option value="${day}">${day}</option>`;
-        }
-        for (let hour = 0; hour < 24; hour++) {
-            hourSelect.innerHTML += `<option value="${hour}">${hour}</option>`;
-        }
-        for (let minute = 0; minute < 60; minute++) {
-            minuteSelect.innerHTML += `<option value="${minute}">${minute}</option>`;
+            // 添加年份选项（1950-2024）
+            for (let year = 2024; year >= 1950; year--) {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year + '年';
+                yearSelect.appendChild(option);
+            }
+
+            // 添加月份选项
+            for (let month = 1; month <= 12; month++) {
+                const option = document.createElement('option');
+                option.value = month;
+                option.textContent = month + '月';
+                monthSelect.appendChild(option);
+            }
+
+            // 更新日期选项
+            function updateDays() {
+                const year = parseInt(yearSelect.value) || new Date().getFullYear();
+                const month = parseInt(monthSelect.value) || 1;
+                const daysInMonth = new Date(year, month, 0).getDate();
+
+                daySelect.innerHTML = '<option value="">日</option>';
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const option = document.createElement('option');
+                    option.value = day;
+                    option.textContent = day + '日';
+                    daySelect.appendChild(option);
+                }
+            }
+
+            yearSelect.addEventListener('change', updateDays);
+            monthSelect.addEventListener('change', updateDays);
+
+            // 初始化日期选项
+            updateDays();
         }
 
         // 运势计算逻辑
@@ -622,17 +783,111 @@
             return aspects;
         }
 
+        // 获取星座
+        function getZodiacSign(month, day) {
+            const dates = [
+                { sign: "水瓶座", start: [1, 20], end: [2, 18] },
+                { sign: "双鱼座", start: [2, 19], end: [3, 20] },
+                { sign: "白羊座", start: [3, 21], end: [4, 19] },
+                { sign: "金牛座", start: [4, 20], end: [5, 20] },
+                { sign: "双子座", start: [5, 21], end: [6, 21] },
+                { sign: "巨蟹座", start: [6, 22], end: [7, 22] },
+                { sign: "狮子座", start: [7, 23], end: [8, 22] },
+                { sign: "处女座", start: [8, 23], end: [9, 22] },
+                { sign: "天秤座", start: [9, 23], end: [10, 23] },
+                { sign: "天蝎座", start: [10, 24], end: [11, 22] },
+                { sign: "射手座", start: [11, 23], end: [12, 21] },
+                { sign: "摩羯座", start: [12, 22], end: [1, 19] }
+            ];
+
+            for (let i = 0; i < dates.length; i++) {
+                const sign = dates[i];
+                const [startMonth, startDay] = sign.start;
+                const [endMonth, endDay] = sign.end;
+                
+                if (i === dates.length - 1) { // 摩羯座跨年特殊处理
+                    if ((month === 12 && day >= startDay) || (month === 1 && day <= endDay)) {
+                        return sign;
+                    }
+                } else if ((month === startMonth && day >= startDay) || 
+                          (month === endMonth && day <= endDay)) {
+                    return sign;
+                }
+            }
+            return dates[0]; // 默认返回水瓶座
+        }
+
+        // 生成星座运势
+        function generateZodiacFortune(zodiacSign) {
+            const ratings = ["★☆☆☆☆", "★★☆☆☆", "★★★☆☆", "★★★★☆", "★★★★★"];
+            const colors = ["红色", "蓝色", "绿色", "紫色", "黄色", "橙色", "粉色", "白色", "黑色", "金色"];
+            const numbers = Array.from({length: 9}, (_, i) => i + 1);
+            
+            const fortuneMessages = [
+                "太阳与木星相位和谐，事业发展顺利，适合展开新计划。",
+                "月亮与金星形成良好相位，桃花运旺盛，感情生活甜蜜。",
+                "水星与土星相位积极，学习能力提升，适合考试和进修。",
+                "火星能量活跃，运动健身效果显著，建议多运动。",
+                "金星带来好运，财运亨通，适合投资理财。"
+            ];
+
+            return {
+                rating: ratings[Math.floor(Math.random() * ratings.length)],
+                luckyNumber: numbers[Math.floor(Math.random() * numbers.length)],
+                luckyColor: colors[Math.floor(Math.random() * colors.length)],
+                message: fortuneMessages[Math.floor(Math.random() * fortuneMessages.length)]
+            };
+        }
+
+        // 更新分享卡片内容
+        function updateShareCard(name, score, rating, zodiacSign) {
+            document.getElementById('card-date').textContent = new Date().toLocaleDateString('zh-CN');
+            document.getElementById('card-name').textContent = name;
+            document.getElementById('card-score').textContent = score + '分';
+            document.getElementById('card-rating').textContent = rating;
+            document.getElementById('card-zodiac').textContent = zodiacSign.sign;
+        }
+
+        // 分享功能
+        document.getElementById('share-wechat').addEventListener('click', () => {
+            document.getElementById('share-card').classList.remove('hidden');
+        });
+
+        document.getElementById('share-moments').addEventListener('click', () => {
+            document.getElementById('share-card').classList.remove('hidden');
+        });
+
+        document.getElementById('close-share').addEventListener('click', () => {
+            document.getElementById('share-card').classList.add('hidden');
+        });
+
         // 更新表单提交处理
         document.getElementById('fortune-form').addEventListener('submit', (e) => {
             e.preventDefault();
             const fullname = document.getElementById('fullname').value;
-            const gender = document.getElementById('gender').value;
+            const gender = document.querySelector('input[name="gender"]:checked').value;
             const birthYear = document.getElementById('birth-year').value;
             const birthMonth = document.getElementById('birth-month').value;
             const birthDay = document.getElementById('birth-day').value;
 
             // 计算运势
             const fortune = calculateFortune(birthYear, birthMonth, birthDay, fullname, gender);
+
+            // 获取星座运势
+            const zodiacSign = getZodiacSign(parseInt(birthMonth), parseInt(birthDay));
+            const zodiacFortune = generateZodiacFortune(zodiacSign);
+
+            // 更新星座信息
+            document.getElementById('zodiac-name').textContent = zodiacSign.sign;
+            document.getElementById('zodiac-date').textContent = 
+                `${zodiacSign.start[0]}月${zodiacSign.start[1]}日 - ${zodiacSign.end[0]}月${zodiacSign.end[1]}日`;
+            
+            document.getElementById('zodiac-content').innerHTML = `
+                <p class="text-gray-700">今日运势：${zodiacFortune.rating}</p>
+                <p class="text-gray-700">幸运数字：${zodiacFortune.luckyNumber}</p>
+                <p class="text-gray-700">幸运色：${zodiacFortune.luckyColor}</p>
+                <p class="text-gray-700">今日提醒：${zodiacFortune.message}</p>
+            `;
 
             // 更新基本信息
             document.getElementById('result-name').textContent = fullname + (gender === 'male' ? '先生' : '女士');
@@ -675,9 +930,23 @@
                 </div>
             `).join('');
 
+            // 更新分享卡片内容
+            updateShareCard(
+                fullname + (gender === 'male' ? '先生' : '女士'),
+                fortune.score,
+                fortune.rating,
+                zodiacSign
+            );
+
             // 显示结果
             document.getElementById('fortune-result').classList.add('show');
+
+            // 平滑滚动到结果区域
+            document.getElementById('fortune-result').scrollIntoView({ behavior: 'smooth' });
         });
+
+        // 初始化日期选择器
+        initDateSelectors();
     </script>
 </body>
 </html> 
