@@ -488,8 +488,8 @@
 
                         <!-- 图片预览（隐藏） -->
                         <div id="image-preview" class="fixed inset-0 bg-black bg-opacity-80 hidden z-50">
-                            <div class="relative w-full min-h-screen flex items-center justify-center p-4">
-                                <div class="relative w-full max-w-md mx-auto">
+                            <div class="relative w-full min-h-screen flex items-center justify-center">
+                                <div class="relative w-full max-w-md mx-auto transform transition-transform duration-300">
                                     <img id="preview-image" src="" alt="运势卡片" class="w-full rounded-lg shadow-xl">
                                     <button id="close-preview" class="absolute -top-10 right-0 text-white text-2xl hover:text-gray-300 p-2">×</button>
                                     <p class="text-white text-center mt-4 text-sm">长按图片保存</p>
@@ -999,26 +999,29 @@
                 const imageData = canvas.toDataURL('image/png');
                 const previewImage = document.getElementById('preview-image');
                 const imagePreview = document.getElementById('image-preview');
+                const previewContainer = imagePreview.querySelector('.relative.w-full.min-h-screen');
+                const previewCard = previewContainer.querySelector('.relative.w-full.max-w-md');
                 
                 previewImage.src = imageData;
+
+                // 获取按钮位置
+                const buttonRect = button.getBoundingClientRect();
+                const buttonCenterY = buttonRect.top + window.scrollY;
+
+                // 设置预览窗口的初始位置
+                previewContainer.style.alignItems = 'flex-start';
+                previewCard.style.marginTop = `${buttonCenterY}px`;
+                previewCard.style.opacity = '0';
+                previewCard.style.transform = 'scale(0.8)';
+
+                // 显示预览窗口
                 imagePreview.classList.remove('hidden');
 
-                // 获取点击按钮时的位置
-                const buttonRect = button.getBoundingClientRect();
-                const buttonCenterY = buttonRect.top + buttonRect.height / 2;
-                const windowHeight = window.innerHeight;
-                
-                // 调整预览容器的位置
-                const previewContainer = imagePreview.querySelector('.relative.w-full.min-h-screen');
-                if (buttonCenterY < windowHeight / 2) {
-                    // 如果按钮在屏幕上半部分，预览显示在下方
-                    previewContainer.style.alignItems = 'flex-start';
-                    previewContainer.style.paddingTop = '20vh';
-                } else {
-                    // 如果按钮在屏幕下半部分，预览显示在上方
-                    previewContainer.style.alignItems = 'flex-end';
-                    previewContainer.style.paddingBottom = '20vh';
-                }
+                // 添加动画效果
+                requestAnimationFrame(() => {
+                    previewCard.style.opacity = '1';
+                    previewCard.style.transform = 'scale(1)';
+                });
 
                 // 添加触摸事件处理
                 let startY = 0;
@@ -1058,13 +1061,19 @@
         // 关闭预览函数
         function closePreview() {
             const imagePreview = document.getElementById('image-preview');
-            imagePreview.classList.add('hidden');
+            const previewCard = imagePreview.querySelector('.relative.w-full.max-w-md');
             
-            // 重置预览容器的位置样式
-            const previewContainer = imagePreview.querySelector('.relative.w-full.min-h-screen');
-            previewContainer.style.alignItems = '';
-            previewContainer.style.paddingTop = '';
-            previewContainer.style.paddingBottom = '';
+            // 添加关闭动画
+            previewCard.style.opacity = '0';
+            previewCard.style.transform = 'scale(0.8)';
+            
+            setTimeout(() => {
+                imagePreview.classList.add('hidden');
+                // 重置样式
+                previewCard.style.marginTop = '';
+                previewCard.style.opacity = '';
+                previewCard.style.transform = '';
+            }, 300);
         }
 
         // 关闭预览
