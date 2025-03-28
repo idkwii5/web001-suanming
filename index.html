@@ -488,8 +488,8 @@
 
                         <!-- 图片预览（隐藏） -->
                         <div id="image-preview" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center hidden z-50">
-                            <div class="relative max-w-[90vw] max-h-[90vh] flex items-center justify-center">
-                                <img id="preview-image" src="" alt="运势卡片" class="max-w-full max-h-[90vh] rounded-lg">
+                            <div class="relative w-full h-full flex items-center justify-center p-4">
+                                <img id="preview-image" src="" alt="运势卡片" class="max-w-full max-h-[85vh] rounded-lg">
                                 <button id="close-preview" class="absolute top-4 right-4 text-white text-2xl hover:text-gray-300">×</button>
                             </div>
                         </div>
@@ -982,6 +982,10 @@
                         clonedCard.style.width = '375px';
                         clonedCard.style.height = 'auto';
                         clonedCard.style.margin = '0 auto';
+                        clonedCard.style.position = 'absolute';
+                        clonedCard.style.left = '50%';
+                        clonedCard.style.top = '50%';
+                        clonedCard.style.transform = 'translate(-50%, -50%)';
                     }
                 });
 
@@ -995,6 +999,31 @@
                 
                 previewImage.src = imageData;
                 imagePreview.classList.remove('hidden');
+
+                // 添加触摸事件处理
+                let startY = 0;
+                let currentY = 0;
+                let isDragging = false;
+
+                previewImage.addEventListener('touchstart', (e) => {
+                    startY = e.touches[0].clientY;
+                    isDragging = true;
+                });
+
+                previewImage.addEventListener('touchmove', (e) => {
+                    if (!isDragging) return;
+                    currentY = e.touches[0].clientY;
+                });
+
+                previewImage.addEventListener('touchend', () => {
+                    if (!isDragging) return;
+                    isDragging = false;
+                    
+                    const diff = currentY - startY;
+                    if (Math.abs(diff) > 50) {
+                        imagePreview.classList.add('hidden');
+                    }
+                });
 
             } catch (error) {
                 console.error('生成运势卡片失败:', error);
