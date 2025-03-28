@@ -389,69 +389,15 @@
                             <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M8.2 13.3c-.5 0-.9-.4-.9-.9s.4-.9.9-.9.9.4.9.9-.4.9-.9.9m7.6 0c-.5 0-.9-.4-.9-.9s.4-.9.9-.9.9.4.9.9-.4.9-.9.9m-7.6-5.3c-.5 0-.9-.4-.9-.9s.4-.9.9-.9.9.4.9.9-.4.9-.9.9m7.6 0c-.5 0-.9-.4-.9-.9s.4-.9.9-.9.9.4.9.9-.4.9-.9.9M12 22.7c-5.9 0-10.7-4.8-10.7-10.7S6.1 1.3 12 1.3s10.7 4.8 10.7 10.7-4.8 10.7-10.7 10.7M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0"/>
                             </svg>
-                            分享运势
+                            保存运势卡片
                         </button>
                     </div>
 
-                    <!-- 分享卡片（隐藏） -->
-                    <div id="share-card" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-                        <div class="bg-white rounded-xl p-4 max-w-[90vw] w-full mx-4">
-                            <div class="text-center mb-4">
-                                <h4 class="text-xl font-bold">分享运势卡片</h4>
-                            </div>
-                            <div id="fortune-card" class="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg p-6 text-white">
-                                <div class="text-center mb-4">
-                                    <h5 class="text-2xl font-bold mb-2">今日运势</h5>
-                                    <p id="card-date" class="text-sm opacity-80"></p>
-                                </div>
-                                <div class="space-y-4">
-                                    <div class="text-center">
-                                        <div id="card-name" class="text-xl font-bold mb-1"></div>
-                                        <div id="card-score" class="text-3xl font-bold"></div>
-                                    </div>
-                                    <div class="grid grid-cols-2 gap-4">
-                                        <div>
-                                            <div class="text-sm opacity-80">综合运势</div>
-                                            <div id="card-rating" class="font-bold"></div>
-                                        </div>
-                                        <div>
-                                            <div class="text-sm opacity-80">星座运势</div>
-                                            <div id="card-zodiac" class="font-bold"></div>
-                                        </div>
-                                    </div>
-                                    <!-- 增加详细运势分析 -->
-                                    <div class="mt-4 pt-4 border-t border-white border-opacity-20">
-                                        <div class="text-sm">
-                                            <div class="font-bold mb-2">今日运势分析</div>
-                                            <div id="card-analysis" class="opacity-90"></div>
-                                        </div>
-                                    </div>
-                                    <!-- 增加今日宜忌 -->
-                                    <div class="mt-4 pt-4 border-t border-white border-opacity-20">
-                                        <div class="grid grid-cols-2 gap-4">
-                                            <div>
-                                                <div class="text-sm font-bold mb-1">今日宜</div>
-                                                <div id="card-good" class="text-xs opacity-90"></div>
-                                            </div>
-                                            <div>
-                                                <div class="text-sm font-bold mb-1">今日忌</div>
-                                                <div id="card-bad" class="text-xs opacity-90"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mt-4 pt-4 border-t border-white border-opacity-20">
-                                    <div class="text-sm text-center space-y-1">
-                                        <p class="opacity-80">长按图片保存到手机</p>
-                                        <p class="opacity-80">分享给好友或朋友圈</p>
-                                        <p class="opacity-80">星命运势提供</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mt-4 flex justify-end space-x-4">
-                                <button id="share-moments" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-common">分享到朋友圈</button>
-                                <button id="close-share" class="px-4 py-2 text-gray-600 hover:text-gray-800">关闭</button>
-                            </div>
+                    <!-- 图片预览（隐藏） -->
+                    <div id="image-preview" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center hidden z-50">
+                        <div class="relative max-w-[90vw] max-h-[90vh]">
+                            <img id="preview-image" src="" alt="运势卡片" class="max-w-full max-h-[90vh]">
+                            <button id="close-preview" class="absolute top-4 right-4 text-white text-2xl hover:text-gray-300">×</button>
                         </div>
                     </div>
                 </div>
@@ -909,15 +855,6 @@
 
         // 分享功能
         document.getElementById('share-wechat').addEventListener('click', () => {
-            document.getElementById('share-card').classList.remove('hidden');
-        });
-
-        document.getElementById('close-share').addEventListener('click', () => {
-            document.getElementById('share-card').classList.add('hidden');
-        });
-
-        // 分享到朋友圈
-        document.getElementById('share-moments').addEventListener('click', () => {
             const card = document.getElementById('fortune-card');
             html2canvas(card, {
                 scale: 2,
@@ -925,49 +862,26 @@
                 backgroundColor: null,
                 logging: false
             }).then(canvas => {
-                // 检查是否在微信浏览器中
-                const isWeixinBrowser = /MicroMessenger/i.test(navigator.userAgent);
+                const imageData = canvas.toDataURL('image/png');
+                const previewImage = document.getElementById('preview-image');
+                const imagePreview = document.getElementById('image-preview');
                 
-                if (isWeixinBrowser) {
-                    // 在微信中，调用分享接口
-                    wx.ready(function() {
-                        wx.updateTimelineShareData({
-                            title: '我的今日运势',
-                            desc: '查看我的运势分析报告',
-                            link: window.location.href,
-                            imgUrl: canvas.toDataURL('image/png'),
-                            success: function() {
-                                alert('分享成功！');
-                            }
-                        });
-                    });
-                } else {
-                    // 在普通浏览器中，显示提示
-                    alert('请在微信中打开以使用分享功能');
-                }
+                previewImage.src = imageData;
+                imagePreview.classList.remove('hidden');
             });
         });
 
-        // 初始化微信分享
-        function initWxShare() {
-            const isWeixinBrowser = /MicroMessenger/i.test(navigator.userAgent);
-            if (isWeixinBrowser) {
-                wx.config({
-                    debug: false,
-                    appId: '', // 需要填入您的微信 AppID
-                    timestamp: Math.floor(Date.now() / 1000),
-                    nonceStr: 'random_string',
-                    signature: '', // 需要填入您的签名
-                    jsApiList: [
-                        'updateAppMessageShareData',
-                        'updateTimelineShareData'
-                    ]
-                });
-            }
-        }
+        // 关闭预览
+        document.getElementById('close-preview').addEventListener('click', () => {
+            document.getElementById('image-preview').classList.add('hidden');
+        });
 
-        // 页面加载完成后初始化微信分享
-        window.addEventListener('load', initWxShare);
+        // 点击预览背景关闭
+        document.getElementById('image-preview').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('image-preview')) {
+                document.getElementById('image-preview').classList.add('hidden');
+            }
+        });
 
         // 更新表单提交处理
         document.getElementById('fortune-form').addEventListener('submit', (e) => {
