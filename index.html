@@ -3,367 +3,343 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>星命运势 - 常见问题解答(FAQ)</title>
+    <title>星命运势 - 探索您的命运轨迹</title>
+    <!-- 添加 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* 基础样式 */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
         
-        body {
-            font-family: 'Microsoft YaHei', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(to bottom, #f5f7fa, #e4e8f0);
-            min-height: 100vh;
-        }
-        
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* 页头样式 */
-        header {
-            background: linear-gradient(to right, #3a1c71, #d76d77, #ffaf7b);
-            color: white;
-            padding: 2rem 0;
-            text-align: center;
-        }
-        
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-        
-        header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-        
-        /* FAQ 部分样式 */
-        .faq-section {
-            padding: 3rem 0;
-        }
-        
-        .faq-title {
-            text-align: center;
-            margin-bottom: 3rem;
-            color: #3a1c71;
-            position: relative;
-        }
-        
-        .faq-title:after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(to right, #3a1c71, #d76d77);
-            margin: 15px auto;
-            border-radius: 2px;
-        }
-        
-        .faq-container {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-        
-        .faq-item {
-            border-bottom: 1px solid #eee;
-        }
-        
-        .faq-item:last-child {
-            border-bottom: none;
-        }
-        
-        .faq-question {
-            padding: 1.5rem;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 600;
-            color: #444;
+        .constellation-icon {
             transition: all 0.3s ease;
         }
         
-        .faq-question:hover {
-            background-color: #f9f9f9;
+        .constellation-icon:hover {
+            transform: rotate(15deg) scale(1.1);
         }
         
-        .faq-question:after {
-            content: '+';
-            font-size: 1.5rem;
-            color: #d76d77;
+        .pricing-card {
+            transition: all 0.3s ease;
         }
         
-        .faq-item.active .faq-question:after {
-            content: '-';
+        .pricing-card:hover {
+            transform: scale(1.03);
         }
         
-        .faq-answer {
-            padding: 0 1.5rem;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            background-color: #f9f9f9;
+        .result-container {
+            display: none;
         }
         
-        .faq-item.active .faq-answer {
-            padding: 1.5rem;
-            max-height: 500px;
-        }
-        
-        /* 页脚样式 */
-        footer {
-            background: #2c2c44;
-            color: white;
-            padding: 2rem 0;
-            text-align: center;
-            margin-top: 2rem;
-        }
-        
-        .footer-content {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            margin-bottom: 1.5rem;
-        }
-        
-        .footer-section {
-            flex: 1 1 300px;
-            margin-bottom: 1.5rem;
-            padding: 0 1rem;
-        }
-        
-        .footer-section h3 {
-            color: #ffaf7b;
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-        }
-        
-        .footer-section p, .footer-section a {
-            color: #ccc;
-            margin-bottom: 0.5rem;
+        #fortune-result.show {
             display: block;
-            text-decoration: none;
-            transition: color 0.3s;
+            animation: fadeIn 0.8s ease-in-out;
         }
         
-        .footer-section a:hover {
-            color: #ffaf7b;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
-        .copyright {
-            border-top: 1px solid #444;
-            padding-top: 1.5rem;
-            color: #999;
-            font-size: 0.9rem;
+        .mobile-menu {
+            display: none;
+        }
+        
+        .mobile-menu.show {
+            display: block;
+        }
+        
+        .rating-stars {
+            color: #FBBF24;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #4F46E5 0%, #818CF8 100%);
+        }
+
+        /* 公共过渡样式 */
+        .transition-common {
+            transition: all 0.3s ease;
         }
     </style>
 </head>
-<body>
-    <!-- 页头 -->
-    <header>
-        <div class="container">
-            <h1>星命运势</h1>
-            <p>探索星空奥秘，洞悉命运轨迹</p>
+<body class="bg-gray-50 text-gray-900">
+    <!-- Header 区域 -->
+    <header class="fixed w-full bg-white bg-opacity-95 shadow-sm z-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold text-indigo-800">星命运势</span>
+                </div>
+                <nav id="desktop-menu" class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-gray-700 hover:text-indigo-600 transition-common">首页</a>
+                    <a href="#features" class="text-gray-700 hover:text-indigo-600 transition-common">特色功能</a>
+                    <a href="#how-it-works" class="text-gray-700 hover:text-indigo-600 transition-common">工作原理</a>
+                    <a href="#testimonials" class="text-gray-700 hover:text-indigo-600 transition-common">用户评价</a>
+                    <a href="#pricing" class="text-gray-700 hover:text-indigo-600 transition-common">服务价格</a>
+                    <a href="#faq" class="text-gray-700 hover:text-indigo-600 transition-common">常见问题</a>
+                </nav>
+                <div class="flex items-center">
+                    <a href="#fortune-tool" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-md shadow-md transition-common hidden md:block" aria-label="免费体验星命运势">免费体验</a>
+                    <button id="mobile-menu-button" class="ml-4 md:hidden text-gray-600 focus:outline-none" aria-label="打开移动菜单">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <!-- 移动端菜单 -->
+            <div id="mobile-menu" class="mobile-menu py-4 pb-6">
+                <a href="#home" class="block py-2 text-gray-700 hover:text-indigo-600 transition-common">首页</a>
+                <a href="#features" class="block py-2 text-gray-700 hover:text-indigo-600 transition-common">特色功能</a>
+                <a href="#how-it-works" class="block py-2 text-gray-700 hover:text-indigo-600 transition-common">工作原理</a>
+                <a href="#testimonials" class="block py-2 text-gray-700 hover:text-indigo-600 transition-common">用户评价</a>
+                <a href="#pricing" class="block py-2 text-gray-700 hover:text-indigo-600 transition-common">服务价格</a>
+                <a href="#faq" class="block py-2 text-gray-700 hover:text-indigo-600 transition-common">常见问题</a>
+                <a href="#fortune-tool" class="block py-2 mt-2 bg-indigo-600 text-white px-4 py-2 rounded-md shadow-md text-center transition-common">免费体验</a>
+            </div>
         </div>
     </header>
-    
-    <!-- FAQ 部分 -->
-    <section class="faq-section">
-        <div class="container">
-            <h2 class="faq-title">常见问题解答</h2>
-            
-            <div class="faq-container">
-                <!-- FAQ项目1 -->
-                <div class="faq-item">
-                    <div class="faq-question">星盘解读是什么，它能告诉我什么？</div>
-                    <div class="faq-answer">
-                        <p>星盘解读是通过分析您出生时天体的位置，来了解您的性格特质、潜能和生命主题的一种方法。它可以帮助您更好地理解自己的优势、挑战和成长机会。</p>
-                        <p>星盘解读可以为您提供关于以下方面的洞察：</p>
-                        <ul>
-                            <li>性格特质和内在动力</li>
-                            <li>天赋和潜能</li>
-                            <li>人际关系模式</li>
-                            <li>职业倾向和发展机会</li>
-                            <li>生命中的挑战和学习任务</li>
-                        </ul>
-                        <p>请注意，星盘解读提供的是可能性和趋势，而非确定的命运。您始终拥有自由意志，可以选择如何应对生命中的各种机遇和挑战。</p>
+
+    <!-- Hero 区域 -->
+    <section id="home" class="pt-24 pb-16 md:pt-32 md:pb-24">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                        探索你的<span class="text-indigo-600">命运轨迹</span>，掌握未来趋势
+                    </h1>
+                    <p class="text-xl text-gray-600 mb-8">
+                        星命运势融合东方玄学、紫微斗数、易经与西方星座学，为您提供专业、准确、全面的运势分析，帮助您在人生道路上做出更明智的决策。
+                    </p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="#fortune-tool" class="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-lg shadow-lg transition-common text-lg text-center" aria-label="立即测算运势">立即测算</a>
+                        <a href="#how-it-works" class="border border-indigo-600 text-indigo-600 hover:bg-indigo-50 px-8 py-3 rounded-lg transition-common text-lg text-center" aria-label="了解更多关于星命运势">了解更多</a>
                     </div>
                 </div>
-                
-                <!-- FAQ项目2 -->
-                <div class="faq-item">
-                    <div class="faq-question">预约星盘解读需要提供哪些信息？</div>
-                    <div class="faq-answer">
-                        <p>为了进行准确的星盘解读，我们需要您提供以下信息：</p>
-                        <ul>
-                            <li>出生日期（年、月、日）</li>
-                            <li>出生时间（尽可能精确到分钟）</li>
-                            <li>出生地点（城市、国家）</li>
-                        </ul>
-                        <p>出生时间对于确定上升星座和宫位非常重要。如果您不确定准确的出生时间，可以查阅出生证明或联系出生医院获取相关记录。</p>
-                        <p>所有提供的个人信息将严格保密，仅用于星盘计算和解读。</p>
-                    </div>
-                </div>
-                
-                <!-- FAQ项目3 -->
-                <div class="faq-item">
-                    <div class="faq-question">星座和上升星座有什么区别？</div>
-                    <div class="faq-answer">
-                        <p>太阳星座（通常所说的"星座"）和上升星座代表人格的不同方面：</p>
-                        <ul>
-                            <li><strong>太阳星座</strong>：由出生日期决定，代表您的核心本质、生命目标和自我意识。这是大多数人熟悉的十二星座。</li>
-                            <li><strong>上升星座</strong>：由出生时间和地点决定，代表您的外在表现、第一印象和与世界互动的方式。这是他人最初遇见您时所感知到的形象。</li>
-                        </ul>
-                        <p>完整的星盘解读会考虑太阳、月亮、上升星座以及其他行星的位置，以提供更全面的个人分析。</p>
-                    </div>
-                </div>
-                
-                <!-- FAQ项目4 -->
-                <div class="faq-item">
-                    <div class="faq-question">占星服务的收费标准是怎样的？</div>
-                    <div class="faq-answer">
-                        <p>我们提供多种占星服务，价格根据深度和复杂度有所不同：</p>
-                        <ul>
-                            <li><strong>基础星盘解读</strong>：￥498，包括太阳、月亮、上升星座及主要行星的分析，约60分钟。</li>
-                            <li><strong>全面星盘解读</strong>：￥798，包括详细的性格分析、生命主题和潜在挑战，约90分钟。</li>
-                            <li><strong>关系星盘对比</strong>：￥998，分析两人星盘的兼容性和互动模式，约120分钟。</li>
-                            <li><strong>年度运势预测</strong>：￥898，预测未来一年的主要机遇和挑战，约90分钟。</li>
-                        </ul>
-                        <p>所有服务都包括一份书面报告和录音记录，以便您日后参考。您可以选择线上或线下方式进行咨询。</p>
-                        <p>我们定期推出优惠活动，请关注官网或订阅电子邮件获取最新信息。</p>
-                    </div>
-                </div>
-                
-                <!-- FAQ项目5 -->
-                <div class="faq-item">
-                    <div class="faq-question">如何准备星盘解读咨询？</div>
-                    <div class="faq-answer">
-                        <p>为了从星盘解读中获得最大收益，建议您：</p>
-                        <ul>
-                            <li>提前思考您最想了解的生活领域或问题</li>
-                            <li>准备纸笔记录重要见解</li>
-                            <li>保持开放的心态，星盘解读可能会提供一些意想不到的洞察</li>
-                            <li>在咨询前保持充足的休息，以便能够完全投入和专注</li>
-                        </ul>
-                        <p>咨询前，我们会发送一份简短的问卷，帮助您明确期望和需求，让占星师能够更有针对性地进行解读。</p>
-                    </div>
-                </div>
-                
-                <!-- FAQ项目6 -->
-                <div class="faq-item">
-                    <div class="faq-question">占星学有科学依据吗？</div>
-                    <div class="faq-answer">
-                        <p>从现代科学的角度来看，占星学目前没有被主流科学证实。占星学是一种古老的研究体系，通过观察天体运动与地球上事件的对应关系发展而来。</p>
-                        <p>许多人发现占星学提供了有价值的自我认知工具和象征性语言，能够帮助理解生命模式和心理动态。无论您将占星学视为科学、艺术、心理工具还是哲学体系，它都可以提供独特的视角来探索个人成长和生活挑战。</p>
-                        <p>我们鼓励客户带着开放而批判的思维来体验占星服务，将其作为自我探索的一种补充方式，而非唯一的指导。</p>
-                    </div>
-                </div>
-                
-                <!-- FAQ项目7 -->
-                <div class="faq-item">
-                    <div class="faq-question">取消或改期预约的政策是什么？</div>
-                    <div class="faq-answer">
-                        <p>我们理解计划可能会发生变化，关于取消和改期预约，我们的政策如下：</p>
-                        <ul>
-                            <li>提前48小时取消或改期：全额退款或免费改期</li>
-                            <li>提前24-48小时取消或改期：退款75%或一次免费改期</li>
-                            <li>提前24小时内取消：退款50%或收取改期费￥100</li>
-                            <li>未出席且未通知：不予退款</li>
-                        </ul>
-                        <p>如遇特殊情况（如健康紧急事件），请与我们联系，我们将酌情处理。</p>
-                        <p>改期仅限在原预约日期的三个月内，且受占星师档期限制。</p>
-                    </div>
-                </div>
-                
-                <!-- FAQ项目8 -->
-                <div class="faq-item">
-                    <div class="faq-question">如何开始学习占星学？</div>
-                    <div class="faq-answer">
-                        <p>如果您对学习占星学感兴趣，以下是一些建议的起点：</p>
-                        <ul>
-                            <li>阅读基础占星学入门书籍，如《实用占星学入门》、《解读生命的密码》等</li>
-                            <li>参加我们定期举办的入门工作坊</li>
-                            <li>订阅我们的电子邮件课程，每周学习一个占星概念</li>
-                            <li>加入占星学习社群，与其他学习者交流</li>
-                            <li>尝试使用在线占星软件（如Astro.com）制作并学习解读自己的星盘</li>
-                        </ul>
-                        <p>我们也提供从初级到高级的占星课程，详情请查看"课程与培训"页面。</p>
-                        <p>学习占星是一个持续的过程，需要时间和实践。建议从理解基本概念开始，然后逐步探索更复杂的技术。</p>
+                <div class="md:w-1/2 flex justify-center">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-indigo-200 rounded-full opacity-30 transform -rotate-6"></div>
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='500' viewBox='0 0 600 500'%3E%3Crect width='600' height='500' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%236366f1' font-size='24' font-family='Arial'%3E运势分析示例图%3C/text%3E%3C/svg%3E" alt="运势分析示例图" class="relative z-10 rounded-lg shadow-xl">
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    
-    <!-- 页脚 -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>联系我们</h3>
-                    <p>电话：+86 123 4567 8910</p>
-                    <p>邮箱：info@xingmingyunshi.com</p>
-                    <p>地址：北京市朝阳区星空大厦1208室</p>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>快速链接</h3>
-                    <a href="#">首页</a>
-                    <a href="#">服务项目</a>
-                    <a href="#">预约咨询</a>
-                    <a href="#">关于我们</a>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>关注我们</h3>
-                    <a href="#">微信公众号</a>
-                    <a href="#">微博</a>
-                    <a href="#">小红书</a>
-                    <a href="#">知乎</a>
+
+    <!-- 运势测试工具 -->
+    <section id="fortune-tool" class="py-16 bg-indigo-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+                <div class="p-8">
+                    <h2 class="text-3xl font-bold text-center mb-8">立即测算您的运势</h2>
+                    <form id="fortune-form" class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label for="fullname" class="block text-sm font-medium text-gray-700">您的姓名</label>
+                                <input type="text" id="fullname" name="fullname" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-common">
+                            </div>
+                            <div class="space-y-2">
+                                <label for="gender" class="block text-sm font-medium text-gray-700">性别</label>
+                                <select id="gender" name="gender" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-common">
+                                    <option value="" disabled selected>请选择</option>
+                                    <option value="male">男</option>
+                                    <option value="female">女</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-sm font-medium text-gray-700">出生日期</label>
+                            <div class="grid md:grid-cols-3 gap-4">
+                                <select id="birth-year" name="birth-year" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-common">
+                                    <option value="" disabled selected>年</option>
+                                </select>
+                                <select id="birth-month" name="birth-month" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-common">
+                                    <option value="" disabled selected>月</option>
+                                </select>
+                                <select id="birth-day" name="birth-day" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-common">
+                                    <option value="" disabled selected>日</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-sm font-medium text-gray-700">出生时间（非必填，提供可获得更精准结果）</label>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <select id="birth-hour" name="birth-hour" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-common">
+                                    <option value="" disabled selected>时</option>
+                                </select>
+                                <select id="birth-minute" name="birth-minute" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-common">
+                                    <option value="" disabled selected>分</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="text-center pt-4">
+                            <button type="submit" id="calculate-btn" class="inline-flex items-center justify-center bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-lg shadow-lg transition-common text-lg" aria-label="开始测算运势">
+                                <span>开始测算</span>
+                                <svg class="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
-            
-            <div class="copyright">
-                <p>&copy; 2025 星命运势 版权所有 | 京ICP备12345678号</p>
+            <!-- 运势结果显示区域 -->
+            <div id="fortune-result" class="max-w-4xl mx-auto mt-10 bg-white rounded-xl shadow-lg overflow-hidden result-container">
+                <div class="p-8">
+                    <h2 class="text-3xl font-bold text-center mb-6">您的运势分析报告</h2>
+                    <div class="flex flex-col md:flex-row items-start mb-8">
+                        <div class="md:w-1/4 flex flex-col items-center justify-center mb-6 md:mb-0">
+                            <div id="result-avatar" class="w-28 h-28 rounded-full bg-indigo-100 flex items-center justify-center text-4xl font-bold text-indigo-600 mb-3">张</div>
+                            <div id="result-name" class="text-xl font-bold">张先生</div>
+                            <div id="result-birthdate" class="text-gray-600">1990年6月15日</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </footer>
-    
-    <!-- JavaScript部分 -->
+    </section>
+
+    <!-- 用户评价 -->
+    <section id="testimonials" class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">用户真实评价</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">来自各行各业的用户对我们的运势分析服务给予了高度评价</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 mr-4">王</div>
+                        <div>
+                            <h4 class="font-bold">王先生</h4>
+                            <p class="text-sm text-gray-500">企业高管</p>
+                        </div>
+                    </div>
+                    <div class="rating-stars mb-2">★★★★★</div>
+                    <p class="text-gray-600 text-sm">测算的结果非常准确，尤其是对我职业发展的指导十分有价值。根据运势分析做出的决策，帮助我抓住了重要商机。</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 mr-4">李</div>
+                        <div>
+                            <h4 class="font-bold">李女士</h4>
+                            <p class="text-sm text-gray-500">自由职业者</p>
+                        </div>
+                    </div>
+                    <div class="rating-stars mb-2">★★★★★</div>
+                    <p class="text-gray-600 text-sm">运势分析的每日宜忌建议非常实用，帮我避开了不少潜在风险。分析报告中的人际关系部分尤其准确，强烈推荐！</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 mr-4">张</div>
+                        <div>
+                            <h4 class="font-bold">张先生</h4>
+                            <p class="text-sm text-gray-500">创业者</p>
+                        </div>
+                    </div>
+                    <div class="rating-stars mb-2">★★★★☆</div>
+                    <p class="text-gray-600 text-sm">作为一名创业者，我需要做很多关键决策。这里的运势分析给了我很多有用的参考，特别是财运和事业运分析相当精准。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 价格区域 -->
+    <section id="pricing" class="py-16 bg-indigo-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">选择您的命运解析方案</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">我们提供多种专业运势分析服务，满足您不同层次的需求</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <div class="pricing-card bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">基础运势</h3>
+                        <div class="text-3xl font-bold mb-4">¥39<span class="text-sm text-gray-500">/次</span></div>
+                        <ul class="space-y-2 mb-6">
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-sm">基础八字命盘分析</span></li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-sm">近期运势预测</span></li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-sm">每日宜忌建议</span></li>
+                        </ul>
+                        <button class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg transition-common">立即购买</button>
+                    </div>
+                </div>
+                <div class="pricing-card bg-white rounded-xl shadow-md overflow-hidden transform scale-105 shadow-xl">
+                    <div class="bg-indigo-600 text-white text-center py-2 text-sm font-bold">推荐方案</div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">专业运势</h3>
+                        <div class="text-3xl font-bold mb-4">¥99<span class="text-sm text-gray-500">/次</span></div>
+                        <ul class="space-y-2 mb-6">
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-sm">全面紫微斗数解析</span></li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-sm">年度运势详细预测</span></li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-sm">事业财运深度分析</span></li>
+                        </ul>
+                        <button class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg transition-common">立即购买</button>
+                    </div>
+                </div>
+                <div class="pricing-card bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">至尊运势</h3>
+                        <div class="text-3xl font-bold mb-4">¥199<span class="text-sm text-gray-500">/次</span></div>
+                        <ul class="space-y-2 mb-6">
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-sm">专业版全部内容</span></li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-sm">10年大运详细解析</span></li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-sm">重大人生转折点预测</span></li>
+                        </ul>
+                        <button class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg transition-common">立即购买</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // FAQ折叠效果
-            const faqQuestions = document.querySelectorAll('.faq-question');
-            
-            faqQuestions.forEach(question => {
-                question.addEventListener('click', () => {
-                    const faqItem = question.parentNode;
-                    
-                    // 切换当前项目的激活状态
-                    faqItem.classList.toggle('active');
-                    
-                    // 如果需要一次只展开一个问题，取消下面的注释
-                    /*
-                    const activeItems = document.querySelectorAll('.faq-item.active');
-                    activeItems.forEach(item => {
-                        if (item !== faqItem) {
-                            item.classList.remove('active');
-                        }
-                    });
-                    */
-                });
-            });
+        // 移动菜单切换
+        document.getElementById('mobile-menu-button').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('show');
+        });
+
+        // 动态填充出生日期下拉框
+        const yearSelect = document.getElementById('birth-year');
+        const monthSelect = document.getElementById('birth-month');
+        const daySelect = document.getElementById('birth-day');
+        const hourSelect = document.getElementById('birth-hour');
+        const minuteSelect = document.getElementById('birth-minute');
+
+        for (let year = 1900; year <= 2025; year++) {
+            yearSelect.innerHTML += `<option value="${year}">${year}</option>`;
+        }
+        for (let month = 1; month <= 12; month++) {
+            monthSelect.innerHTML += `<option value="${month}">${month}</option>`;
+        }
+        for (let day = 1; day <= 31; day++) {
+            daySelect.innerHTML += `<option value="${day}">${day}</option>`;
+        }
+        for (let hour = 0; hour < 24; hour++) {
+            hourSelect.innerHTML += `<option value="${hour}">${hour}</option>`;
+        }
+        for (let minute = 0; minute < 60; minute++) {
+            minuteSelect.innerHTML += `<option value="${minute}">${minute}</option>`;
+        }
+
+        // 表单提交处理
+        document.getElementById('fortune-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const fullname = document.getElementById('fullname').value;
+            const gender = document.getElementById('gender').value;
+            const birthYear = document.getElementById('birth-year').value;
+            const birthMonth = document.getElementById('birth-month').value;
+            const birthDay = document.getElementById('birth-day').value;
+
+            document.getElementById('result-name').textContent = fullname + (gender === 'male' ? '先生' : '女士');
+            document.getElementById('result-birthdate').textContent = `${birthYear}年${birthMonth}月${birthDay}日`;
+            document.getElementById('result-avatar').textContent = fullname[0];
+            document.getElementById('fortune-result').classList.add('show');
         });
     </script>
 </body>
-</html>
+</html> 
