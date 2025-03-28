@@ -962,20 +962,13 @@
                 </div>
             `).join('');
 
-            // 更新分享卡片内容
-            updateShareCard(
-                fullname + (gender === 'male' ? '先生' : '女士'),
-                fortune.score,
-                fortune.rating,
-                zodiacSign,
-                fortune
-            );
-
             // 显示结果
-            document.getElementById('fortune-result').classList.add('show');
+            const resultContainer = document.getElementById('fortune-result');
+            resultContainer.classList.remove('hidden');
+            resultContainer.classList.add('show');
 
             // 平滑滚动到结果区域
-            document.getElementById('fortune-result').scrollIntoView({ behavior: 'smooth' });
+            resultContainer.scrollIntoView({ behavior: 'smooth' });
         });
 
         // 添加姓名输入实时验证
