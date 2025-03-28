@@ -437,50 +437,50 @@
                         <!-- 运势卡片（用于生成图片） -->
                         <div id="fortune-card" class="hidden">
                             <div class="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg p-6 text-white" style="width: 375px; margin: 0 auto;">
-                                <div class="text-center mb-4">
+                                <div class="text-center mb-6">
                                     <h5 class="text-2xl font-bold mb-2">今日运势</h5>
                                     <p id="card-date" class="text-sm opacity-80"></p>
                                 </div>
-                                <div class="space-y-4">
+                                <div class="space-y-6">
                                     <div class="text-center">
-                                        <div id="card-name" class="text-xl font-bold mb-1"></div>
-                                        <div id="card-score" class="text-3xl font-bold"></div>
+                                        <div id="card-name" class="text-xl font-bold mb-2"></div>
+                                        <div id="card-score" class="text-4xl font-bold"></div>
                                     </div>
                                     <div class="grid grid-cols-2 gap-4">
-                                        <div>
-                                            <div class="text-sm opacity-80">综合运势</div>
-                                            <div id="card-rating" class="font-bold"></div>
+                                        <div class="text-center">
+                                            <div class="text-sm opacity-80 mb-1">综合运势</div>
+                                            <div id="card-rating" class="font-bold text-lg"></div>
                                         </div>
-                                        <div>
-                                            <div class="text-sm opacity-80">星座运势</div>
-                                            <div id="card-zodiac" class="font-bold"></div>
+                                        <div class="text-center">
+                                            <div class="text-sm opacity-80 mb-1">星座运势</div>
+                                            <div id="card-zodiac" class="font-bold text-lg"></div>
                                         </div>
                                     </div>
-                                    <div class="mt-4 pt-4 border-t border-white border-opacity-20">
+                                    <div class="pt-4 border-t border-white border-opacity-20">
                                         <div class="text-sm">
-                                            <div class="font-bold mb-2">今日运势分析</div>
-                                            <div id="card-analysis" class="opacity-90 space-y-2"></div>
+                                            <div class="font-bold mb-3 text-base">今日运势分析</div>
+                                            <div id="card-analysis" class="opacity-90 space-y-3"></div>
                                         </div>
                                     </div>
-                                    <div class="mt-4 pt-4 border-t border-white border-opacity-20">
+                                    <div class="pt-4 border-t border-white border-opacity-20">
                                         <div class="grid grid-cols-2 gap-4">
                                             <div>
-                                                <div class="text-sm font-bold mb-1">今日宜</div>
-                                                <div id="card-good" class="text-xs opacity-90"></div>
+                                                <div class="text-sm font-bold mb-2">今日宜</div>
+                                                <div id="card-good" class="text-sm opacity-90 leading-relaxed"></div>
                                             </div>
                                             <div>
-                                                <div class="text-sm font-bold mb-1">今日忌</div>
-                                                <div id="card-bad" class="text-xs opacity-90"></div>
+                                                <div class="text-sm font-bold mb-2">今日忌</div>
+                                                <div id="card-bad" class="text-sm opacity-90 leading-relaxed"></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mt-4 pt-4 border-t border-white border-opacity-20">
-                                    <div class="text-sm text-center space-y-1">
+                                <div class="mt-6 pt-4 border-t border-white border-opacity-20">
+                                    <div class="text-sm text-center space-y-2">
                                         <p class="opacity-80">长按图片保存到手机</p>
                                         <p class="opacity-80">分享给好友或朋友圈</p>
                                         <p class="opacity-80">星命运势提供</p>
-                                        <p class="opacity-80 mt-2">访问 playgame.my 获取更多运势分析</p>
+                                        <p class="opacity-80 mt-2 text-base font-medium">访问 playgame.my 获取更多运势分析</p>
                                     </div>
                                 </div>
                             </div>
@@ -489,7 +489,7 @@
                         <!-- 图片预览（隐藏） -->
                         <div id="image-preview" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center hidden z-50">
                             <div class="relative w-full h-full flex items-center justify-center p-4">
-                                <img id="preview-image" src="" alt="运势卡片" class="max-w-full max-h-[85vh] rounded-lg">
+                                <img id="preview-image" src="" alt="运势卡片" class="w-full max-w-md max-h-[85vh] rounded-lg">
                                 <button id="close-preview" class="absolute top-4 right-4 text-white text-2xl hover:text-gray-300">×</button>
                             </div>
                         </div>
@@ -938,9 +938,9 @@
             
             // 更新运势分析
             const analysisHtml = fortune.analysis.map(aspect => 
-                `<div class="mb-2">
-                    <div class="font-medium">${aspect.title}</div>
-                    <div class="opacity-90">${aspect.content}</div>
+                `<div class="mb-3">
+                    <div class="font-medium text-base mb-1">${aspect.title}</div>
+                    <div class="opacity-90 leading-relaxed">${aspect.content}</div>
                 </div>`
             ).join('');
             document.getElementById('card-analysis').innerHTML = analysisHtml;
