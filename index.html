@@ -488,8 +488,8 @@
 
                         <!-- 图片预览（隐藏） -->
                         <div id="image-preview" class="fixed inset-0 bg-black bg-opacity-80 hidden z-50">
-                            <div class="relative w-full h-screen flex items-center justify-center">
-                                <div class="relative w-full max-w-md mx-auto px-4" style="margin-top: calc(50vh - 50%);">
+                            <div class="relative w-full h-screen">
+                                <div id="preview-container" class="absolute w-full max-w-md left-1/2 transform -translate-x-1/2 px-4">
                                     <img id="preview-image" src="" alt="运势卡片" class="w-full rounded-lg shadow-xl">
                                     <button id="close-preview" class="absolute -top-10 right-0 text-white text-2xl hover:text-gray-300 p-2">×</button>
                                     <p class="text-white text-center mt-4 text-sm">长按图片保存</p>
@@ -999,19 +999,16 @@
                 const imageData = canvas.toDataURL('image/png');
                 const previewImage = document.getElementById('preview-image');
                 const imagePreview = document.getElementById('image-preview');
-                const previewContainer = imagePreview.querySelector('.relative.w-full.max-w-md');
+                const previewContainer = document.getElementById('preview-container');
                 
                 previewImage.src = imageData;
 
-                // 获取按钮在视口中的位置
+                // 获取按钮位置
                 const buttonRect = button.getBoundingClientRect();
-                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                const buttonTop = buttonRect.top + scrollTop;
-
-                // 计算预览容器的位置
-                const viewportHeight = window.innerHeight;
-                const marginTop = Math.max(0, buttonTop - (viewportHeight / 4));
-                previewContainer.style.marginTop = `${marginTop}px`;
+                const buttonTop = buttonRect.top + window.scrollY;
+                
+                // 设置预览容器的位置
+                previewContainer.style.top = `${buttonTop}px`;
 
                 // 显示预览窗口
                 imagePreview.classList.remove('hidden');
@@ -1058,9 +1055,11 @@
         // 关闭预览函数
         function closePreview() {
             const imagePreview = document.getElementById('image-preview');
-            const previewContainer = imagePreview.querySelector('.relative.w-full.max-w-md');
             imagePreview.classList.add('hidden');
-            previewContainer.style.marginTop = ''; // 重置位置
+            
+            // 重置预览容器的位置
+            const previewContainer = document.getElementById('preview-container');
+            previewContainer.style.top = '';
         }
 
         // 关闭预览
