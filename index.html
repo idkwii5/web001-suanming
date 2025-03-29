@@ -492,7 +492,7 @@
                                 <div id="preview-container" class="absolute w-full max-w-md left-1/2 transform -translate-x-1/2 px-4">
                                     <img id="preview-image" src="" alt="运势卡片" class="w-full rounded-lg shadow-xl">
                                     <button id="close-preview" class="absolute -top-10 right-0 text-white text-2xl hover:text-gray-300 p-2">×</button>
-                                    <p class="text-white text-center mt-4 text-sm">点击背景或上下滑动关闭</p>
+                                    <p class="text-white text-center mt-4 text-sm">长按图片保存</p>
                                 </div>
                             </div>
                         </div>
@@ -1012,35 +1012,6 @@
 
                 // 显示预览窗口
                 imagePreview.classList.remove('hidden');
-
-                // 添加触摸事件处理
-                let startY = 0;
-                let currentY = 0;
-                let isDragging = false;
-
-                const handleTouchStart = (e) => {
-                    startY = e.touches[0].clientY;
-                    isDragging = true;
-                };
-
-                const handleTouchMove = (e) => {
-                    if (!isDragging) return;
-                    currentY = e.touches[0].clientY;
-                };
-
-                const handleTouchEnd = () => {
-                    if (!isDragging) return;
-                    isDragging = false;
-                    
-                    const diff = currentY - startY;
-                    if (Math.abs(diff) > 50) {
-                        closePreview();
-                    }
-                };
-
-                previewImage.addEventListener('touchstart', handleTouchStart);
-                previewImage.addEventListener('touchmove', handleTouchMove);
-                previewImage.addEventListener('touchend', handleTouchEnd);
 
             } catch (error) {
                 console.error('生成运势卡片失败:', error);
